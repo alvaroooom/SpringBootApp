@@ -1,5 +1,5 @@
 package com.hilos.controlador;
-
+import com.hilos.util.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -7,6 +7,28 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class HilosController {
 
+    @GetMapping("/listar")
+    public String listarHilos(Model model) {
+
+        // Llama a la utilidad estática que imprime los hilos en la consola
+    	//SE MUESTRA EN TERMINAL
+    	InspectorDeHilos.listarHilos();
+    	//PASA A LA WEB
+    	String[] listado = InspectorDeHilos.obtenerListadoHilos();
+
+        // Puedes enviar un mensaje a la vista si quieres
+        model.addAttribute("mensaje",
+                "Se ha ejecutado InspectorDeHilos.listarHilos(). " +
+                "Revisa la consola del servidor para ver el listado completo de hilos.");
+
+        model.addAttribute("listado",listado );
+
+        
+    	
+        // Reutiliza la misma vista o crea otra, como prefieras
+        return "listar-hilos"; 
+    }
+    
     @GetMapping("/hilos")
     public String verHilos(Model model) {
 
@@ -68,4 +90,6 @@ public class HilosController {
 
         return "debug-hilos"; // debug-hilos.html en templates
     }
+    
+
 }

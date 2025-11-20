@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Listar hilos</title>
+</head>
+
+<body>
+	<span th:text="${mensaje}"> Aquí va el mensaje</span>
+
+	<ol>
+		<!-- Recorre cada elemento del array/lista -->
+		<li th:each="item : ${listado}" th:text="${item}"></li>
+	</ol>
+
+</body>
+
+</html>
