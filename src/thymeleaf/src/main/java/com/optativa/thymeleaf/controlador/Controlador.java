@@ -7,6 +7,7 @@ import org.springframework.stereotype.*;
 import org.springframework.ui.Model;
 import org.springframework.web.*;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.optativa.thymeleaf.ThymeleafApplication;
@@ -43,4 +44,17 @@ public class Controlador {
     	
 		return "lista";
     }
+    
+    @GetMapping("/productos/{id}")
+    public String detalle(@PathVariable("id") int id, Model model) {
+        List<Producto> listaProductos = new ArrayList<>();
+        listaProductos.add(new Producto("Pan", 1, "Alimentación"));
+        listaProductos.add(new Producto("PC", 3000, "Componentes"));
+
+        /*Producto productoSeleccionado = listaProductos
+        model.addAttribute("producto", productoSeleccionado);*/
+
+        return "detalle";
+    }
+
 }
