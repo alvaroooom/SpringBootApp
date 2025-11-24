@@ -33,16 +33,18 @@ public class Controlador {
 	
 	@GetMapping("/productos")
 	public String listado(Model model) {
-	
+	 
 		
 	
+	
 		List<Producto> listaProductos = new ArrayList<Producto>();
-		//String nombre, int precio, String categoria
+			//String nombre, int precio, String categoria
 		Producto p1 = new Producto("Pan", 1, "Alimentación");
 		Producto p2 = new Producto("PC", 3000, "Componentes");
+		Producto p3 = new Producto("TEST", 334, "Prueba");
 		listaProductos.add(p1);
 		listaProductos.add(p2);
-	
+		listaProductos.add(p3);
 		model.addAttribute("listaProductos", listaProductos);
 		
 		return "lista";
