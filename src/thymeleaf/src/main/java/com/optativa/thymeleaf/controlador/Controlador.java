@@ -34,8 +34,6 @@ public class Controlador {
 	@GetMapping("/productos")
 	public String listado(Model model) {
 	 
-		
-	
 	
 		List<Producto> listaProductos = new ArrayList<Producto>();
 			//String nombre, int precio, String categoria

@@ -1,6 +1,5 @@
 package com.optativa.thymeleaf.entidad;
 
-
 public class Producto {
 		private String nombre;
 		private int precio;
@@ -8,7 +7,6 @@ public class Producto {
 		
 		public Producto() {}
 		
-
 		public Producto(String nombre, int precio, String categoria) {
 			super();
 			this.nombre = nombre;
