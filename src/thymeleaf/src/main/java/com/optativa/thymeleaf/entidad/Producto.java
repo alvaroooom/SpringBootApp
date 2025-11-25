@@ -4,12 +4,12 @@ public class Producto {
 		//añadios ID
 		private int id;
 		private String nombre;
-		private int precio;
+		private double precio;
 		private String categoria;
 		
 		public Producto() {}
 		
-		public Producto(int id, String nombre, int precio, String categoria) {
+		public Producto(int id, String nombre, double precio, String categoria) {
 			super();
 			this.id = id;
 			this.nombre = nombre;
@@ -26,11 +26,11 @@ public class Producto {
 			this.nombre = nombre;
 		}
 
-		public int getPrecio() {
+		public double getPrecio() {
 			return precio;
 		}
 
-		public void setPrecio(int precio) {
+		public void setPrecio(double precio) {
 			this.precio = precio;
 		}
 
@@ -48,6 +48,12 @@ public class Producto {
 
 		public void setId(int id) {
 			this.id = id;
+		}
+
+		@Override
+		public String toString() {
+			return "Producto [id=" + id + ", nombre=" + nombre + ", precio=" + precio + ", categoria=" + categoria
+					+ "]";
 		}
 		
 			

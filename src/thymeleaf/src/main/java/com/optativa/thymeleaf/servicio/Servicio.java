@@ -9,30 +9,32 @@ import com.optativa.thymeleaf.entidad.Producto;
 
 @Service
 public class Servicio {
-	private List<Producto> listaProductos = new ArrayList<Producto>();
-	
-	public Servicio() {
-		Producto p1 = new Producto(1, "Pan", 1, "Alimentación");
-		Producto p2 = new Producto(2, "PC", 3000, "Componentes");
-		Producto p3 = new Producto(3, "TEST", 334, "Prueba");
-		listaProductos.add(p1);
-		listaProductos.add(p2);
-		listaProductos.add(p3);
-	}
-	
-	
-	public List<Producto> obtenerProductos(){
-	
-			return listaProductos;
-	}
-	
-	public Producto obtenerProductoPorId(int id) {
-		for(Producto p : listaProductos) {
-			if(p.getId() == id) {
-				return p;
-			}
-		}
-		return null;
-	}
 
+    private final List<Producto> listaProductos = new ArrayList<>();
+    private int cont_id = 1;
+
+    public Servicio() {
+        agregarProducto(new Producto(0, "Pan", 1.10, "Alimentación"));
+        agregarProducto(new Producto(0, "Leche", 0.95, "Alimentación"));
+        agregarProducto(new Producto(0,  "Café Molido", 3.80, "Alimentación"));
+        agregarProducto(new Producto(0,  "Auriculares", 29.95, "Electrónica"));
+    }
+    
+
+    public void agregarProducto(Producto p) {
+        p.setId(cont_id++);
+        listaProductos.add(p);
+    }
+
+    public List<Producto> obtenerProductos() {
+        return listaProductos;
+    }
+
+    public Producto obtenerProductoPorId(int id) {
+        return listaProductos
+                .stream()
+                .filter(p -> p.getId() == id)
+                .findFirst()
+                .orElse(null);
+    }
 }

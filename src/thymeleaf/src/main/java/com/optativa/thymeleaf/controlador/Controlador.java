@@ -5,8 +5,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.optativa.thymeleaf.entidad.Producto;
 import com.optativa.thymeleaf.servicio.Servicio;
 
 
@@ -41,5 +43,18 @@ public class Controlador {
 	 public String obtenerProducto(@PathVariable int id, Model model) {
 		 model.addAttribute("producto", servicio.obtenerProductoPorId(id));
 		 return "vista";
+	 }
+	 @GetMapping("/formulario")
+	 public String mostrarForm(Model model) {
+		    model.addAttribute("producto", new Producto());
+		    return "formulario";
+		}
+	 @PostMapping("/formulario")
+	 public String obtenerFormulario(Producto producto, Model model) {
+		 System.out.println(producto.toString());
+		 servicio.agregarProducto(producto);
+			model.addAttribute("listaProductos", servicio.obtenerProductos());
+
+		 return "lista";
 	 }
 }

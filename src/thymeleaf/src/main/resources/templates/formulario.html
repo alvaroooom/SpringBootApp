@@ -1,0 +1,13 @@
+<html>
+	<head></head>
+	<body>
+		<form th:object="${producto}" action="/formulario" method="post">
+			<input type="hidden" th:field="*{id}">
+
+			Nombre <input th:field="*{nombre}" /><br>
+			Precio <input th:field="*{precio}" /><br>
+			Categoria <input th:field="*{categoria}" /><br>
+			<input type="submit" value="enviar">
+		</form>
+	</body>
+</html>
