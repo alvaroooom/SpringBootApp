@@ -24,6 +24,7 @@
 				<td><span th:text="${producto.nombre}"></span></td>
 				<td><span th:text="${producto.precio}"></span></td>
 				<td><span th:text="${producto.categoria}"></span></td>
+				<td><a th:href="@{/productos/{id}(id=${producto.id})}">Ver detalle</a></td>
 			</tr>
 	</div>
 	</table>
