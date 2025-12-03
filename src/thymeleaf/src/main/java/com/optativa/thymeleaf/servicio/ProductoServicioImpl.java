@@ -6,14 +6,16 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.optativa.thymeleaf.entidad.Producto;
-
+/**
+ * FAKE SERVICIO
+ */
 @Service
-public class Servicio {
+public class ProductoServicioImpl implements ProductoServicio{
 
     private final List<Producto> listaProductos = new ArrayList<>();
     private int cont_id = 1;
 
-    public Servicio() {
+    public ProductoServicioImpl() {
         agregarProducto(new Producto(0, "Pan", 1.10, "Alimentación"));
         agregarProducto(new Producto(0, "Leche", 0.95, "Alimentación"));
         agregarProducto(new Producto(0,  "Café Molido", 3.80, "Alimentación"));
@@ -37,4 +39,17 @@ public class Servicio {
                 .findFirst()
                 .orElse(null);
     }
+
+
+	@Override
+	public void actualizarProducto(Producto producto) {
+	    eliminarProducto(producto.getId());
+	    listaProductos.add(producto);
+	}
+
+
+	@Override
+	public void eliminarProducto(int id) {
+		listaProductos.removeIf(p -> p.getId() == id);
+	}
 }

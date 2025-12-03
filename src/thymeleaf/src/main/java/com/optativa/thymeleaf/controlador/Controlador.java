@@ -1,5 +1,6 @@
 package com.optativa.thymeleaf.controlador;
 
+import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,60 +11,105 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.optativa.thymeleaf.entidad.Producto;
-import com.optativa.thymeleaf.servicio.Servicio;
+import com.optativa.thymeleaf.servicio.ProductoServicio;
 
 import jakarta.validation.Valid;
 
-
-
 @Controller
 public class Controlador {
-	
-	private Servicio servicio;
-	
-	public Controlador(Servicio servicio) {
-		this.servicio = servicio;
-	}
 
-	@GetMapping("/saluda")
-	public String saludo(@RequestParam(required = false, defaultValue = "Test") String name, Model modelo) {
-		System.out.println("#####  Entra en /saluda");
-		//String name = "Manuel";
-		modelo.addAttribute("nombre", name);
-		
-		return "saludo";
-	}
-	
-	@GetMapping("/productos")
-	public String listado(Model model) {
-	 
-		model.addAttribute("listaProductos", servicio.obtenerProductos());
-		
-		return "lista";
-	}
-	
-	 @GetMapping("/productos/{id}")
-	 public String obtenerProducto(@PathVariable int id, Model model) {
-		 Producto p = servicio.obtenerProductoPorId(id);
-		 model.addAttribute("producto", p);
-		 return "vista";
-	 }
-	 @GetMapping("/formulario")
-	 public String mostrarForm(Model model) {
-		    model.addAttribute("producto", new Producto());
-		    return "formulario";
-		}
-	 @PostMapping("/formulario")
-	 public String obtenerFormulario(@Valid Producto producto,  BindingResult bindingResult,Model model) {
-		 System.out.println("###"+producto.toString());
-		 
-		 if(bindingResult.hasErrors()) {
-			 return "formulario";
-		 }
-		 
-		 servicio.agregarProducto(producto);
-			model.addAttribute("listaProductos", servicio.obtenerProductos());
+    private final ProductoServicio productoServicio;
 
-		 return "lista";
-	 }
+    // Inyección por constructor de la implementación (ProductoServicioImpl)
+    public Controlador(ProductoServicio productoServicio) {
+        this.productoServicio = productoServicio;
+    }
+
+    /* ==========================
+       SALUDO DE PRUEBA
+       ========================== */
+
+    @GetMapping("/saluda")
+    public String saludo(@RequestParam(required = false, defaultValue = "Test") String name,
+                         Model modelo) {
+        modelo.addAttribute("nombre", name);
+        return "saludo";
+    }
+
+    /* ==========================
+       LISTADO Y DETALLE
+       ========================== */
+
+    @GetMapping("/productos")
+    public String listado(Model model) {
+        List<Producto> productos = productoServicio.obtenerProductos();
+        model.addAttribute("listaProductos", productos);
+        return "lista";
+    }
+
+    @GetMapping("/productos/{id}")
+    public String obtenerProducto(@PathVariable int id, Model model) {
+        Producto p = productoServicio.obtenerProductoPorId(id);
+        model.addAttribute("producto", p);
+        return "vista";
+    }
+
+    /* ==========================
+       CREAR
+       ========================== */
+
+    // Mostrar formulario vacío para crear
+    @GetMapping("/formulario")
+    public String mostrarFormCrear(Model model) {
+        model.addAttribute("producto", new Producto()); // id = 0
+        return "formulario";
+    }
+
+    /* ==========================
+       EDITAR
+       ========================== */
+
+    // Mostrar formulario con datos para editar
+    @GetMapping("/productos/{id}/editar")
+    public String mostrarFormEditar(@PathVariable int id, Model model) {
+        Producto producto = productoServicio.obtenerProductoPorId(id);
+        model.addAttribute("producto", producto);
+        return "formulario"; // mismo formulario que para crear
+    }
+
+    /* ==========================
+       GUARDAR (CREAR o EDITAR)
+       ========================== */
+
+    @PostMapping("/formulario")
+    public String guardarProducto(@Valid Producto producto,
+                                  BindingResult bindingResult) {
+
+        // Si hay errores de validación, volvemos al formulario
+        if (bindingResult.hasErrors()) {
+            return "formulario";
+        }
+
+        if (producto.getId() == 0) {
+            // Crear nuevo
+            productoServicio.agregarProducto(producto);
+        } else {
+            // Editar existente
+            productoServicio.actualizarProducto(producto);
+        }
+
+        // PRG: redirigimos para evitar que F5 repita el POST
+        return "redirect:/productos";
+    }
+
+    /* ==========================
+       ELIMINAR
+       ========================== */
+
+    // Versión sencilla con GET (para el enlace "Eliminar" del listado)
+    @GetMapping("/productos/{id}/eliminar")
+    public String eliminarProducto(@PathVariable int id) {
+        productoServicio.eliminarProducto(id);
+        return "redirect:/productos";
+    }
 }
