@@ -3,6 +3,7 @@ package com.optativa.thymeleaf.controlador;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.optativa.thymeleaf.entidad.Producto;
 import com.optativa.thymeleaf.servicio.Servicio;
+
+import jakarta.validation.Valid;
 
 
 
@@ -51,8 +54,13 @@ public class Controlador {
 		    return "formulario";
 		}
 	 @PostMapping("/formulario")
-	 public String obtenerFormulario(Producto producto, Model model) {
-		 System.out.println(producto.toString());
+	 public String obtenerFormulario(@Valid Producto producto,  BindingResult bindingResult,Model model) {
+		 System.out.println("###"+producto.toString());
+		 
+		 if(bindingResult.hasErrors()) {
+			 return "formulario";
+		 }
+		 
 		 servicio.agregarProducto(producto);
 			model.addAttribute("listaProductos", servicio.obtenerProductos());
 

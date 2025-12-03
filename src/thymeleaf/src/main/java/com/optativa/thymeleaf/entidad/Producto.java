@@ -1,11 +1,19 @@
 package com.optativa.thymeleaf.entidad;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
+/**
+ * https://spring.io/guides/gs/validating-form-input
+ */
 public class Producto {
 		//añadios ID
 		private int id;
-		
+		@NotBlank(message = "Nombre no puede estar en blanco")
 		private String nombre;
+		@Positive(message = "El precio tiene que ser positivo")
 		private double precio;
+		
+		@NotBlank(message = "Categoría tiene que tener un valor")
 		private String categoria;
 		
 		public Producto() {}

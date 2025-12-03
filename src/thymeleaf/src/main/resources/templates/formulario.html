@@ -1,13 +1,49 @@
-<html>
-	<head></head>
-	<body>
-		<form th:object="${producto}" action="/formulario" method="post">
-			<input type="hidden" th:field="*{id}">
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulario Producto</title>
+</head>
+<body>
 
-			Nombre <input th:field="*{nombre}" /><br>
-			Precio <input th:field="*{precio}" /><br>
-			Categoria <input th:field="*{categoria}" /><br>
-			<input type="submit" value="enviar">
-		</form>
-	</body>
+<form th:object="${producto}" th:action="@{/formulario}" method="post">
+
+    <input type="hidden" th:field="*{id}"/>
+
+    <!-- Nombre -->
+    <div>
+        <label for="nombre">Nombre</label>
+        <input id="nombre" th:field="*{nombre}" />
+        <div th:if="${#fields.hasErrors('nombre')}" 
+             th:errors="*{nombre}"
+             style="color:red;"></div>
+    </div>
+    <br>
+
+    <!-- Precio -->
+    <div>
+        <label for="precio">Precio</label>
+        <input id="precio" th:field="*{precio}" />
+        <div th:if="${#fields.hasErrors('precio')}" 
+             th:errors="*{precio}"
+             style="color:red;"></div>
+    </div>
+    <br>
+
+    <!-- Categoría -->
+    <div>
+        <label for="categoria">Categoría</label>
+        <input id="categoria" th:field="*{categoria}" />
+        <div th:if="${#fields.hasErrors('categoria')}" 
+             th:errors="*{categoria}"
+             style="color:red;"></div>
+    </div>
+    <br>
+
+    <!-- Botón enviar -->
+    <input type="submit" value="Enviar"/>
+
+</form>
+
+</body>
 </html>
