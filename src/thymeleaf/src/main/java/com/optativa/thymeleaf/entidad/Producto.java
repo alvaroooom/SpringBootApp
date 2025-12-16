@@ -1,12 +1,16 @@
 package com.optativa.thymeleaf.entidad;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 /**
  * https://spring.io/guides/gs/validating-form-input
  */
+@Entity
 public class Producto {
 		//añadios ID
+		@Id
 		private int id;
 		@NotBlank(message = "Nombre no puede estar en blanco")
 		private String nombre;
