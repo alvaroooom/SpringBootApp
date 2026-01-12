@@ -47,7 +47,7 @@ class ControladorTest {
     @DisplayName("GET /productos rellena el modelo con listaProductos y muestra 'lista'")
     void listadoProductos() throws Exception {
         when(servicio.obtenerProductos()).thenReturn(
-                List.of(new Producto(1, "P1", 10.0, "Cat1"))
+                List.of(new Producto( "P1", 10.0, "Cat1"))
         );
 
         mockMvc.perform(get("/productos"))

@@ -61,7 +61,7 @@ public class Controlador {
     // Mostrar formulario vacío para crear
     @GetMapping("/formulario")
     public String mostrarFormCrear(Model model) {
-        model.addAttribute("producto", new Producto()); // id = 0
+        model.addAttribute("producto", new Producto());
         return "formulario";
     }
 

@@ -16,10 +16,10 @@ public class ProductoServicioImpl implements ProductoServicio{
     private int cont_id = 1;
 
     public ProductoServicioImpl() {
-        agregarProducto(new Producto(0, "Pan", 1.10, "Alimentación"));
-        agregarProducto(new Producto(0, "Leche", 0.95, "Alimentación"));
-        agregarProducto(new Producto(0,  "Café Molido", 3.80, "Alimentación"));
-        agregarProducto(new Producto(0,  "Auriculares", 29.95, "Electrónica"));
+        agregarProducto(new Producto("Pan", 1.10, "Alimentación"));
+        agregarProducto(new Producto( "Leche", 0.95, "Alimentación"));
+        agregarProducto(new Producto(  "Café Molido", 3.80, "Alimentación"));
+        agregarProducto(new Producto( "Auriculares", 29.95, "Electrónica"));
     }
     
 

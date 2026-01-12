@@ -65,7 +65,7 @@ class ProductoValidationTest {
 
     @Test
     void productoValido_noTieneViolaciones() {
-        Producto p = new Producto(1, "Teclado", 59.99, "Periféricos");
+        Producto p = new Producto( "Teclado", 59.99, "Periféricos");
 
         Set<ConstraintViolation<Producto>> violations = validator.validate(p);
 
