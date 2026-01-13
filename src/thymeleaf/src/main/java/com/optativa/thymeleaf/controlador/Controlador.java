@@ -90,7 +90,7 @@ public class Controlador {
             return "formulario";
         }
 
-        if (producto.getId() == 0) {
+        if (producto.getId() == null) {
             // Crear nuevo
             productoServicio.agregarProducto(producto);
         } else {
