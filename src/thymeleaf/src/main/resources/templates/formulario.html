@@ -14,11 +14,13 @@
 
 <div class="container mt-4">
 
-    <h2 class="mb-4" th:text="${producto.id == 0} ? 'Nuevo producto' : 'Editar producto'"></h2>
+    <h2 class="mb-4" th:text="${producto.id == null} ? 'Nuevo producto' : 'Editar producto'"></h2>
 
     <form th:object="${producto}" th:action="@{/formulario}" method="post" class="border p-3 rounded">
 
-        <input type="hidden" th:field="*{id}"/>
+		
+		    <input type="hidden" th:field="*{id}" />
+	
 
         <!-- NOMBRE -->
         <div class="mb-3">
